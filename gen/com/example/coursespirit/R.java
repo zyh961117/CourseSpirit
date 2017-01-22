@@ -35,16 +35,24 @@ public final class R {
         public static final int ic_launcher=0x7f020004;
         public static final int shape_left_radius_color_square=0x7f020005;
         public static final int shape_radius_color_square=0x7f020006;
+        public static final int tab_icon_me=0x7f020007;
+        public static final int widget_bar_explore_nor=0x7f020008;
+        public static final int widget_bar_explore_over=0x7f020009;
+        public static final int widget_bar_me_nor=0x7f02000a;
+        public static final int widget_bar_me_over=0x7f02000b;
     }
     public static final class id {
-        public static final int action_example=0x7f08001c;
-        public static final int action_settings=0x7f08001b;
+        public static final int RadioButton0=0x7f080016;
+        public static final int RadioButton1=0x7f080017;
+        public static final int RadioButton2=0x7f080018;
+        public static final int action_example=0x7f080024;
+        public static final int action_settings=0x7f080023;
         public static final int answer_answerer=0x7f080005;
         public static final int answer_content=0x7f080004;
-        public static final int answer_question=0x7f080018;
-        public static final int ask_question=0x7f08001d;
+        public static final int answer_question=0x7f080020;
+        public static final int ask_question=0x7f080025;
         public static final int course_name=0x7f08000f;
-        public static final int create_course=0x7f08001a;
+        public static final int create_course=0x7f080022;
         public static final int id_answer_content_et=0x7f080006;
         public static final int id_answer_question_btn=0x7f080007;
         public static final int id_ask_question_btn=0x7f08000a;
@@ -56,16 +64,21 @@ public final class R {
         public static final int id_question_content_et=0x7f080009;
         public static final int id_question_title_et=0x7f080008;
         public static final int id_register_btn=0x7f080002;
-        public static final int id_register_name_et=0x7f080017;
+        public static final int id_register_name_et=0x7f08001c;
         public static final int list_answer=0x7f08000b;
         public static final int list_course=0x7f08000c;
         public static final int list_question=0x7f08000e;
-        public static final int question_asker=0x7f080016;
-        public static final int question_content=0x7f080015;
-        public static final int question_title=0x7f080014;
-        public static final int refresh=0x7f080019;
+        public static final int main_radiogroup=0x7f080015;
+        public static final int question_asker=0x7f08001b;
+        public static final int question_content=0x7f08001a;
+        public static final int question_title=0x7f080019;
+        public static final int realtabcontent=0x7f080014;
+        public static final int refresh=0x7f080021;
         public static final int section_label=0x7f080013;
         public static final int teacher_name=0x7f080010;
+        public static final int textView1=0x7f08001d;
+        public static final int textView2=0x7f08001e;
+        public static final int textView3=0x7f08001f;
         public static final int title_course=0x7f08000d;
     }
     public static final class layout {
@@ -80,8 +93,12 @@ public final class R {
         public static final int create_course=0x7f030008;
         public static final int fragment_main=0x7f030009;
         public static final int fragment_navigation_drawer=0x7f03000a;
-        public static final int question_item=0x7f03000b;
-        public static final int register=0x7f03000c;
+        public static final int main_fragment_tabs=0x7f03000b;
+        public static final int question_item=0x7f03000c;
+        public static final int register=0x7f03000d;
+        public static final int tab1=0x7f03000e;
+        public static final int tab2=0x7f03000f;
+        public static final int tab3=0x7f030010;
     }
     public static final class menu {
         public static final int answer=0x7f070000;

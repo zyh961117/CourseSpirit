@@ -84,8 +84,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void onSuccess(List<UserBean> userList) {
 				if (userList != null && userList.size() > 0){
 					ToastUtils.toast(MainActivity.this, "登陆成功");
-					Intent intent = new Intent(MainActivity.this, ChooseCourse.class);
-					intent.putExtra("user", userList.get(0));
+					Intent intent = new Intent(MainActivity.this, BaseActivity.class);
+					//intent.putExtra("user", userList.get(0));
 					startActivity(intent);
 					finish();
 				}
