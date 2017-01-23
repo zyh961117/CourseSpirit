@@ -21,16 +21,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity1 extends FragmentActivity {
 	private ViewPager mViewPager;
 	private FragmentPagerAdapter mAdapter;
 	private List<Fragment> mDatas;
 
-	private TextView mChatTextView;
-	private TextView mFriendTextView;
-	private TextView mContactTextView;
-	//private LinearLayout mChatLinearLayout;
-	//private BadgeView mBadgeView;
+	private TextView mCourseTextView;
+	private TextView mFinderTextView;
+	private TextView mMineTextView;
+	private LinearLayout mBottomLinearLayout;
+	private BadgeView mBadgeView;
 
 	private ImageView mTabline;
 	private int mScreen1_3;
@@ -47,12 +47,12 @@ public class MainActivity extends FragmentActivity {
 		initTabLine();
 		initView();
 	}
-	
+
 	private void initTabLine()
 	{
 		mTabline = (ImageView) findViewById(R.id.id_iv_tabline);
 		Display display = getWindow().getWindowManager().getDefaultDisplay();
-		DisplayMetrics outMetrics = new DisplayMetrics();  //整个屏幕的宽和高
+		DisplayMetrics outMetrics = new DisplayMetrics();
 		display.getMetrics(outMetrics);
 		mScreen1_3 = outMetrics.widthPixels / 3;
 		LayoutParams lp = mTabline.getLayoutParams();
@@ -63,16 +63,17 @@ public class MainActivity extends FragmentActivity {
 	private void initView()
 	{
 		mViewPager = (ViewPager) findViewById(R.id.id_viewpager);
-		mChatTextView = (TextView) findViewById(R.id.id_tv_course);
-		mFriendTextView = (TextView) findViewById(R.id.id_tv_finder);
-		mContactTextView = (TextView) findViewById(R.id.id_tv_mine);
-		//mChatLinearLayout = (LinearLayout) findViewById(R.id.id_bottom_tab);
+		mCourseTextView = (TextView) findViewById(R.id.id_tv_course);
+		mFinderTextView = (TextView) findViewById(R.id.id_tv_finder);
+		mMineTextView = (TextView) findViewById(R.id.id_tv_mine);
+		mBottomLinearLayout = (LinearLayout) findViewById(R.id.id_bottom_tab);
 
 		mDatas = new ArrayList<Fragment>();
 
-		ChatMainTabFragment tab01 = new ChatMainTabFragment();
-		FriendMainTabFragment tab02 = new FriendMainTabFragment();
-		ContactMainTabFragment tab03 = new ContactMainTabFragment();
+		//ChooseCourse tab01 = new ChooseCourse();
+		FinderView tab01 = new FinderView();
+		FinderView tab02 = new FinderView();
+		MineView tab03 = new MineView();
 
 		mDatas.add(tab01);
 		mDatas.add(tab02);
@@ -93,7 +94,8 @@ public class MainActivity extends FragmentActivity {
 			}
 		};
 		mViewPager.setAdapter(mAdapter);
-		mViewPager.addOnPageChangeListener(new OnPageChangeListener()
+
+		mViewPager.setOnPageChangeListener(new OnPageChangeListener()
 		{
 			@Override
 			public void onPageSelected(int position)
@@ -102,21 +104,21 @@ public class MainActivity extends FragmentActivity {
 				switch (position)
 				{
 				case 0:
-					/*if (mBadgeView != null)
+					if (mBadgeView != null)
 					{
-						mChatLinearLayout.removeView(mBadgeView);
+						mBottomLinearLayout.removeView(mBadgeView);
 					}
-					mBadgeView = new BadgeView(MainActivity.this);
+					mBadgeView = new BadgeView(MainActivity1.this);
 					mBadgeView.setBadgeCount(7);
-					mChatLinearLayout.addView(mBadgeView);*/
+					mBottomLinearLayout.addView(mBadgeView);
 
-					mChatTextView.setTextColor(Color.parseColor("#00B0F0"));
+					mCourseTextView.setTextColor(Color.parseColor("#008000"));
 					break;
 				case 1:
-					mFriendTextView.setTextColor(Color.parseColor("#00B0F0"));
+					mFinderTextView.setTextColor(Color.parseColor("#008000"));
 					break;
 				case 2:
-					mContactTextView.setTextColor(Color.parseColor("#00B0F0"));
+					mMineTextView.setTextColor(Color.parseColor("#008000"));
 					break;
 
 				}
@@ -126,24 +128,29 @@ public class MainActivity extends FragmentActivity {
 			}
 
 			@Override
-			public void onPageScrolled(int position, float positionOffset, int positionOffsetPx)
+			public void onPageScrolled(int position, float positionOffset,
+					int positionOffsetPx)
 			{
-				Log.e("TAG", position + " , " + positionOffset + " , " + positionOffsetPx);
+				Log.e("TAG", position + " , " + positionOffset + " , "
+						+ positionOffsetPx);
 
-				LinearLayout.LayoutParams lp = (android.widget.LinearLayout.LayoutParams) mTabline.getLayoutParams();
+				LinearLayout.LayoutParams lp = (android.widget.LinearLayout.LayoutParams) mTabline
+						.getLayoutParams();
 
-				if (mCurrentPageIndex == 0 && position == 0) {  //0->1
-					lp.leftMargin = (int) (positionOffset * mScreen1_3 + mCurrentPageIndex * mScreen1_3);
-				} 
-				else if (mCurrentPageIndex == 1 && position == 0) {  //1->0
+				if (mCurrentPageIndex == 0 && position == 0)// 0->1
+				{
+					lp.leftMargin = (int) (positionOffset * mScreen1_3 + mCurrentPageIndex
+							* mScreen1_3);
+				} else if (mCurrentPageIndex == 1 && position == 0)// 1->0
+				{
 					lp.leftMargin = (int) (mCurrentPageIndex * mScreen1_3 + (positionOffset - 1)
 							* mScreen1_3);
-				} 
-				else if (mCurrentPageIndex == 1 && position == 1) {  //1->2
+				} else if (mCurrentPageIndex == 1 && position == 1) // 1->2
+				{
 					lp.leftMargin = (int) (mCurrentPageIndex * mScreen1_3 + positionOffset
 							* mScreen1_3);
-				} 
-				else if (mCurrentPageIndex == 2 && position == 1) {  //2->1
+				} else if (mCurrentPageIndex == 2 && position == 1) // 2->1
+				{
 					lp.leftMargin = (int) (mCurrentPageIndex * mScreen1_3 + ( positionOffset-1)
 							* mScreen1_3);
 				}
@@ -163,9 +170,10 @@ public class MainActivity extends FragmentActivity {
 
 	protected void resetTextView()
 	{
-		mChatTextView.setTextColor(Color.BLACK);
-		mFriendTextView.setTextColor(Color.BLACK);
-		mContactTextView.setTextColor(Color.BLACK);
+		mCourseTextView.setTextColor(Color.BLACK);
+		mFinderTextView.setTextColor(Color.BLACK);
+		mMineTextView.setTextColor(Color.BLACK);
 	}
 
 }
+
