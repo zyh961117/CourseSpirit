@@ -37,6 +37,7 @@ public class ChooseAnswer extends Activity implements OnClickListener {
 	private Course course;
 	private Question question;
 	private Button addBtn;
+	private Button refreshBtn;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,9 @@ public class ChooseAnswer extends Activity implements OnClickListener {
 	
 	private void initView() {
 		addBtn = (Button) this.findViewById(R.id.id_add_answer_btn);
+		refreshBtn = (Button) this.findViewById(R.id.id_refresh_answer_btn);
 		addBtn.setOnClickListener(this);
+		refreshBtn.setOnClickListener(this);
 	}
 	
 	private void showAnswer() {
@@ -97,6 +100,10 @@ public class ChooseAnswer extends Activity implements OnClickListener {
 			intent.putExtra("course",course);
 			intent.putExtra("question", question);
 			startActivity(intent);
+			break;
+		case R.id.id_refresh_answer_btn:
+			showAnswer();
+			Toast.makeText(ChooseAnswer.this, "ÒÑË¢ÐÂ", Toast.LENGTH_SHORT).show();
 			break;
 		}
 	}

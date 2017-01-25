@@ -31,6 +31,7 @@ public class ChooseCourse extends Activity implements OnClickListener {
 	private static final String BMOB_APPLICATION_ID = "08a83f2371f73387e6ff9ee27097c9ec";
 	private UserBean user;
 	private Button addBtn;
+	private Button refreshBtn;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,9 @@ public class ChooseCourse extends Activity implements OnClickListener {
 	
 	private void initView() {
 		addBtn = (Button) this.findViewById(R.id.id_add_course_btn);
+		refreshBtn = (Button) this.findViewById(R.id.id_refresh_course_btn);
 		addBtn.setOnClickListener(this);
+		refreshBtn.setOnClickListener(this);
 	}
 
 	
@@ -94,6 +97,10 @@ public class ChooseCourse extends Activity implements OnClickListener {
 			Intent intent = new Intent(ChooseCourse.this, CreateCourse.class);
 			intent.putExtra("user", user);
 			startActivity(intent);
+			break;
+		case R.id.id_refresh_course_btn:
+			showCourse();
+			Toast.makeText(ChooseCourse.this, "ÒÑË¢ÐÂ", Toast.LENGTH_SHORT).show();
 			break;
 		}
 	}
