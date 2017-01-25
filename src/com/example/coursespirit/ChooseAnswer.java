@@ -19,7 +19,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,14 +31,17 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 
-public class ChooseAnswer extends Activity{
+public class ChooseAnswer extends Activity implements OnClickListener {
 	private static final String BMOB_APPLICATION_ID = "08a83f2371f73387e6ff9ee27097c9ec";
 	private UserBean user;
 	private Course course;
 	private Question question;
+	private Button addBtn;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.choose_answer);
 		Intent intent = getIntent();
 		Serializable extra = intent.getSerializableExtra("user"); 
@@ -45,7 +51,13 @@ public class ChooseAnswer extends Activity{
 		extra = intent.getSerializableExtra("question"); 
 		question = (Question) extra;
 		Bmob.initialize(this, BMOB_APPLICATION_ID);
+		initView();
 		showAnswer();
+	}
+	
+	private void initView() {
+		addBtn = (Button) this.findViewById(R.id.id_add_answer_btn);
+		addBtn.setOnClickListener(this);
 	}
 	
 	private void showAnswer() {
@@ -75,26 +87,18 @@ public class ChooseAnswer extends Activity{
             }
         });
 	}
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.answer, menu);
-		return true;
-	}
 	
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.answer_question:
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.id_add_answer_btn:
 			Intent intent = new Intent(ChooseAnswer.this, AnswerQuestion.class);
 			intent.putExtra("user", user);
 			intent.putExtra("course",course);
 			intent.putExtra("question", question);
 			startActivity(intent);
 			break;
-		case R.id.refresh:
-			Toast.makeText(this, "ÒÑË¢ÐÂ", Toast.LENGTH_SHORT).show();
-			showAnswer();
-			break;
-		default:
 		}
-	return true;
 	}
+	
 }

@@ -1,8 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
-	<item
-		android:id="@+id/answer_question"
-		android:title="发表回答"/>
-	<item
-		android:id="@+id/refresh"
-		android:title="刷新列表"/>
-</menu>

@@ -11,39 +11,45 @@ import com.example.coursespirit.db.UserBean;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTabHost;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 
-public class ChooseCourse extends FragmentActivity {
+public class ChooseCourse extends Activity implements OnClickListener {
 	
 	private static final String BMOB_APPLICATION_ID = "08a83f2371f73387e6ff9ee27097c9ec";
 	private UserBean user;
+	private Button addBtn;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//requestWindowFeature(Window.FEATURE_NO_TITLE);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.choose_course);
 		Intent intent = getIntent();
 		Serializable extra = intent.getSerializableExtra("user"); 
 		user = (UserBean) extra;
 		Bmob.initialize(this, BMOB_APPLICATION_ID);
+		initView();
 		showCourse();
 	}
+	
+	private void initView() {
+		addBtn = (Button) this.findViewById(R.id.id_add_course_btn);
+		addBtn.setOnClickListener(this);
+	}
+
 	
 	private void showCourse() {
 		BmobQuery<Course> query = new BmobQuery<Course>();
@@ -81,25 +87,14 @@ public class ChooseCourse extends FragmentActivity {
         });
 	}
 	
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.course, menu);
-		return true;
-	}
-	
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.create_course:
-			Toast.makeText(this, "开始创建课程", Toast.LENGTH_SHORT).show();
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.id_add_course_btn:
 			Intent intent = new Intent(ChooseCourse.this, CreateCourse.class);
 			intent.putExtra("user", user);
 			startActivity(intent);
 			break;
-		case R.id.refresh:
-			Toast.makeText(this, "已刷新", Toast.LENGTH_SHORT).show();
-			showCourse();
-			break;
-		default:
 		}
-	return true;
 	}
 }

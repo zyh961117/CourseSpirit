@@ -84,7 +84,7 @@ public class Login extends Activity implements OnClickListener {
 			public void onSuccess(List<UserBean> userList) {
 				if (userList != null && userList.size() > 0){
 					ToastUtils.toast(Login.this, "µÇÂ½³É¹¦");
-					Intent intent = new Intent(Login.this, MainActivity.class);
+					Intent intent = new Intent(Login.this, ChooseCourse.class);
 					intent.putExtra("user", userList.get(0));
 					startActivity(intent);
 					finish();

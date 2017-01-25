@@ -17,7 +17,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,14 +29,17 @@ import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 
-public class ChooseQuestion extends Activity{
+public class ChooseQuestion extends Activity implements OnClickListener {
 	private static final String BMOB_APPLICATION_ID = "08a83f2371f73387e6ff9ee27097c9ec";
 	private TextView titleText;
 	private UserBean user;
 	private Course course;
+	private Button addBtn;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.choose_question);
 		Intent intent = getIntent();
 		Serializable extra = intent.getSerializableExtra("user"); 
@@ -41,8 +47,14 @@ public class ChooseQuestion extends Activity{
 		extra = intent.getSerializableExtra("course"); 
 		course = (Course) extra;
 		Bmob.initialize(this, BMOB_APPLICATION_ID);
+		initView();
 		showCourse();
 		showQuestion();
+	}
+	
+	private void initView() {
+		addBtn = (Button) this.findViewById(R.id.id_add_question_btn);
+		addBtn.setOnClickListener(this);
 	}
 	
 	private void showCourse() {
@@ -90,26 +102,16 @@ public class ChooseQuestion extends Activity{
         });
 	}
 	
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.question, menu);
-		return true;
-	}
-	
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.ask_question:
-			Toast.makeText(this, "开始提出问题", Toast.LENGTH_SHORT).show();
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.id_add_question_btn:
 			Intent intent = new Intent(ChooseQuestion.this, AskQuestion.class);
 			intent.putExtra("user", user);
 			intent.putExtra("course",course);
 			startActivity(intent);
 			break;
-		case R.id.refresh:
-			Toast.makeText(this, "已刷新", Toast.LENGTH_SHORT).show();
-			showQuestion();
-			break;
-		default:
 		}
-	return true;
 	}
+	
 }
